@@ -35,7 +35,7 @@ es_primo(A, B):- (hermano(C, D); hermano(D, C); hermana(C, D); hermana(D, C)), h
 **es_sobrino(persona1, persona2)**: Indica que la persona 1 es sobrino/sobrina de la persona 2. La persona 1 es sobrino/sobrina de la persona 2 si la persona 2 es tio/tia de la persona 1.
 
 ```pl
-es_sobrino(A, B):- es_tio(B, A); es_tia(B, A).
+es_sobrino(A, B):- es_tio(B, A).
 ```
 
 **es_culpable(persona)**: Indica el culpable del asesinato de Marta.

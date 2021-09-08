@@ -108,7 +108,7 @@ es_tio(A, C):- (hermano(A, B);hermana(A, B)), hijo(C, B).
 
 es_primo(A, B):- (hermano(C, D); hermano(D, C); hermana(C, D); hermana(D, C)), hijo(A, C), hijo(B, D).
 
-es_sobrino(A, B):- es_tio(B, A); es_tia(B, A).
+es_sobrino(A, B):- es_tio(B, A).
 
 es_culpable(A):- hermana(C, A), pareja(marta, bruce), es_primo(C, clark), es_tio(barry, C).
 
