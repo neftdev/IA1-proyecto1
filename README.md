@@ -145,10 +145,88 @@ X = harry.
 ```
 
 ## Problema 2
+### Hechos
+
+**pareja(persona1, persona2)**: Indica que la persona 1 es pareja de la persona 2.
+
+**padre(persona1, persona2)**: Indica que la persona 1 es padre de la persona 2.
+
+**madre(persona1, persona2)**: Indica que la persona 1 es madre de la persona 2.
+
+**hijo(persona1, persona2)**: Indica que la persona 1 es hijo de la persona 2.
+
+**hermano(persona1, persona2)**: Indica que la persona 1 es hermano de la persona 2.
+
+**hermana(persona1, persona2)**: Indica que la persona 1 es hermana de la persona 2.
+
+### Reglas
+
+**es_tio(persona1, persona2)**: Indica que la persona 1 es tio/tia de la persona 2. Se busca que la persona 1 y una persona 3 sean hermanos/hermanas,y que la persona 3 sea el padre de la persona 2.
 
 ```pl
-
+es_tio(A, C):- (hermano(A, B);hermana(A, B)), hijo(C, B).
 ```
+
+**es_primo(persona1, persona2)**: Indica que la persona 1 es primo/prima de la persona 2. Se busca que las persona 3 y persona 4 sean hermanos/hermanas, que persona 1 sea hijo/hija de la persona 3, y la persona 2 sea hijo/hija de la persona 4 para que la persona 1 y persona 2 sean primos.
+
+```pl
+es_primo(A, B):- (hermano(C, D); hermano(D, C); hermana(C, D); hermana(D, C)), hijo(A, C), hijo(B, D).
+```
+
+**es_sobrino(persona1, persona2)**: Indica que la persona 1 es sobrino/sobrina de la persona 2. La persona 1 es sobrino/sobrina de la persona 2 si la persona 2 es tio/tia de la persona 1.
+
+```pl
+es_sobrino(A, B):- es_tio(B, A); es_tia(B, A).
+```
+
+**imprimir_arbol(persona)**: Devuelve el arbol apartir de la persona seleccionada. Se busca si se tiene pareja la persona, y si tiene hijos, los hijos se recorren y se realiza lo mismo. Las parejas se representan por: ` *--* `, y la lista de hijos por ` -> `.
+
+```pl
+imprimir_hijos([]):- nl.
+imprimir_hijos([A|B]):- write(' -> '), write(A), imprimir_hijos(B).
+
+imprimir_descendientes([]):- nl.
+imprimir_descendientes([A|B]):- imprimir_arbol(A), imprimir_descendientes(B).
+
+imprimir_arbol(X):-
+  (
+    pareja(X, Y) ->
+    write(X), write(' *--* '), write(Y), nl
+    ;
+    write(X)
+  ),
+  (
+    hijo([HijoActual|SiguientesHijos], X) ->
+    write(X), write(' -> '), write(HijoActual),
+    imprimir_hijos(SiguientesHijos),
+    nl,
+    nl,
+    imprimir_arbol(HijoActual),
+    imprimir_descendientes(SiguientesHijos),
+    nl
+    ;
+    nl
+  ).
+imprimir_arbol(_):- imprimir_arbol(bruce).
+```
+
+**Modo de uso de las reglas del problema 1**
+
+**imprimir_arbol**
+
+Para imprimir todo el arbol de la familia se puede utilizar la variable especial `_`.
+
+```pl
+imprimir_arbol(_).
+```
+
+Para imprimir el arbol de un integrante de familia se debe especificar el nombre del integrante.
+
+```pl
+imprimir_arbol(nombre).
+```
+
+
 
 ## Problema 3
 
