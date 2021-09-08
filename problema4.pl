@@ -57,7 +57,7 @@ resolver(
   diferente(R3C1, R3C2, R4C1, R4C2), % tercer cuadrante
   diferente(R3C3, R3C4, R4C3, R4C4). % cuarto cuadrante
 
-% verifica que todos los numeroeros sean diferentes o iguales (\=)
+% verifica que todos los numeros sean diferentes o iguales (\=)
 diferente(X, W, Z, Y)
   :-
     numero(X), numero(W), numero(Z), numero(Y),
